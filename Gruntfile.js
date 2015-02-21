@@ -22,12 +22,35 @@ module.exports = function (grunt) {
 	                );
 	            }
             }
-        }
+        },
+        watch: { /* grunt-contrib-watch */
+            fest: { /* Подзадача */
+                files: ['templates/*.xml'], /* следим за шаблонами */
+                tasks: ['fest'], /* перекомпилировать */
+                options: {
+                    atBegin: true /* запустить задачу при старте */
+                }
+            },
+            server: { /* Подзадача */
+                files: ['public_html/js/**/*.js'], /* следим за JS */
+                options: {
+                    livereload: true /* автоматическая перезагрузка */
+                }
+            }
+        },
+		concurrent: {
+            target: ['watch', 'shell'], /* Подзадача */
+            options: {
+                    logConcurrentOutput: true, /* Вывод процесса */
+            }
+		}
     });
  
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-fest');
-    //grunt.registerTask('default', ['concat']);
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-concurrent');
+    grunt.registerTask('default', ['shell', 'watch']);
 };
         
 
