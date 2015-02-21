@@ -1,15 +1,19 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     grunt.initConfig({
-      concat: { /* Настройки задачи */ },
-      any_other_name: 'hello' /* Любое произвольное свойство */
+        shell: { /* grunt-shell */
+            server: { /* Подзадача */
+                command: 'java -cp L1.2-1.0-jar-with-dependencies.jar main.Main 7070'
+                /* запуск сервера */
+            }
+        } 
     });
+ 
+    grunt.loadNpmTasks('grunt-shell');
+    //grunt.registerTask('default', ['concat']);
 };
+        
 
-// Загрузка плагинов, на примере "concat".
-grunt.loadNpmTasks('grunt-contrib-concat');
-// Определение задач, default должен быть всегда.
-grunt.registerTask('default', ['concat']);
-            
+
 
 
 
